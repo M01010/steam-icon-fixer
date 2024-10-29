@@ -47,7 +47,7 @@ def get_file_name(r: requests.Response, url: str) -> str:
         fname = url.split("/")[-1]
     return fname
 
-def get_steamdb_url(game_id: int):
+def get_steamdb_url(game_id: str):
     return f"https://steamdb.info/app/{game_id}/info/"
 
 
