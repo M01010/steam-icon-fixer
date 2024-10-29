@@ -1,7 +1,6 @@
 
 import os
 import re
-from typing import Optional
 
 from pydantic import BaseModel
 import requests
@@ -16,7 +15,7 @@ class GameShortcut(BaseModel):
     name: str
     steam_id: str
 
-def get_game_id(f: str, homedir: str) -> Optional[GameShortcut]:
+def get_game_id(f: str, homedir: str) -> GameShortcut | None:
     if not f.endswith('.url'):
         return None
     if not os.path.isfile(os.path.join(homedir, f)):
@@ -52,7 +51,7 @@ def get_steamdb_url(game_id: int):
     return f"https://steamdb.info/app/{game_id}/info/"
 
 
-def get_image_link(webdriver: WebDriver, game_id) -> str | None:
+def get_image_link(webdriver: WebDriver, game_id: str) -> str | None:
     webdriver.get(get_steamdb_url(game_id))
 
     table = webdriver.find_element(by=By.ID, value="js-assets-table")
