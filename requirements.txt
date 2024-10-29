@@ -1,0 +1,5 @@
+selenium~=4.25.0
+pydantic~=2.9.2
+requests~=2.32.3
+beautifulsoup4~=4.12.3
+lxml_html_clean~=0.3.1
