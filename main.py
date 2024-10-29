@@ -4,7 +4,7 @@ import time
 from selenium.webdriver import Firefox, Chrome, Edge
 from selenium.webdriver.remote.webdriver import WebDriver
 
-from scraper import download_to_dir, get_shortcut, get_image_link
+from functions import download_to_dir, get_shortcut, get_image_link
 
 browsers: dict[str, type[WebDriver]] = {
     'firefox': Firefox,
