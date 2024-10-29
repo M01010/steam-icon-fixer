@@ -9,23 +9,23 @@ from selenium.webdriver.remote.webdriver import WebDriver
 import bs4
 
 
-regex = re.compile("URL=steam://rungameid/[0-9]+")
+game_regex = re.compile("URL=steam://rungameid/[0-9]+")
 
 class GameShortcut(BaseModel):
     name: str
     steam_id: str
 
-def get_game_id(f: str, homedir: str) -> GameShortcut | None:
-    if not f.endswith('.url'):
+def get_shortcut(filename: str, homedir: str) -> GameShortcut | None:
+    if not filename.endswith('.url'):
         return None
-    if not os.path.isfile(os.path.join(homedir, f)):
+    if not os.path.isfile(os.path.join(homedir, filename)):
         return None
     
-    with open(os.path.join(homedir, f)) as f2:
-        for l in f2.readlines():
-            if regex.match(l):
-                steam_id =  l.strip().lstrip('URL=steam://rungameid/')
-                name = f.rstrip('.url')
+    with open(os.path.join(homedir, filename)) as f:
+        for line in f.readlines():
+            if game_regex.match(line):
+                steam_id =  line.strip().lstrip('URL=steam://rungameid/')
+                name = filename.rstrip('.url')
                 return GameShortcut(name=name, steam_id=steam_id)
     return None
 
@@ -47,12 +47,12 @@ def get_file_name(r: requests.Response, url: str) -> str:
         fname = url.split("/")[-1]
     return fname
 
-def get_steamdb_url(game_id: str):
-    return f"https://steamdb.info/app/{game_id}/info/"
+def get_steamdb_url(steam_id: str):
+    return f"https://steamdb.info/app/{steam_id}/info/"
 
 
-def get_image_link(webdriver: WebDriver, game_id: str) -> str | None:
-    webdriver.get(get_steamdb_url(game_id))
+def get_image_link(webdriver: WebDriver, steam_id: str) -> str | None:
+    webdriver.get(get_steamdb_url(steam_id))
 
     table = webdriver.find_element(by=By.ID, value="js-assets-table")
     inner = table.get_attribute("innerHTML")

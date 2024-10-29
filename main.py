@@ -4,7 +4,7 @@ import time
 from selenium.webdriver import Firefox, Chrome, Edge
 from selenium.webdriver.remote.webdriver import WebDriver
 
-from scraper import download_to_dir, get_game_id, get_image_link
+from scraper import download_to_dir, get_shortcut, get_image_link
 
 browsers: dict[str, type[WebDriver]] = {
     'firefox': Firefox,
@@ -34,15 +34,15 @@ def main(argv: list[str], argc: int):
     with browsers[browser]() as webdriver:
         print(f"Opened {browser}")
         for filename in os.listdir(homedir):
-            g = get_game_id(filename, homedir)
+            g = get_shortcut(filename, homedir)
             if not g:
                 continue
             print(f"Found Game({g}) in directory")
             link = get_image_link(webdriver, g.steam_id)
-            print(f"Got link={link}")
             if not link:
                 print(f"Error {g} has no link")
                 continue
+            print(f"Got link={link}")
             download_to_dir(link, steam_icon_dir)
             print(f"Downloaded icon\n")
             time.sleep(2)
