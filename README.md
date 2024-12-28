@@ -6,7 +6,8 @@ download the script and run on python version 3.11<br>
 ### install requirements:<br>
 <code>pip install -r requirements.txt</code><br>
 ### run the script:<br>
-<code> python main.py "C:\Users\{Your User}\Desktop" "C:\Program Files (x86)\Steam\steam\games" firefox </code><br>
-first path is the path of the broken icons<br>
-second path is the path of the steam game icon cache directory<br>
-the third is browser: you can choose any of <code>firefox</code>, <code>chrome</code>, <code>edge</code>.
+e.g.
+<code> python main.py "C:\Users\\{Your User}\Desktop" "C:\Program Files (x86)\Steam\steam\games" firefox </code><br>
+first argument is the path of the broken icons<br>
+second argument is the path of the steam game icon cache directory<br>
+the third argument is browser: you can choose any of <code>firefox</code>, <code>chrome</code>, <code>edge</code>.
